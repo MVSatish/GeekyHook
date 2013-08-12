@@ -1,6 +1,7 @@
 #!/bin/bash
-#Lists all the friends of whoever's graph api friends with access token has been used as $url and saves it to a file FBfriends.txt
+#Lists all the friends of whoever's graph api friends with access token has been used as $url and saves it to a file fbgstats.txt
 #run the file with ur access token ex: sh ./fbgender.sh $accesstoken
+#Written by MVSatish <mvsatish.in>. Licence: GPL V3
 
 url="https://graph.facebook.com/me/friends?fields=name,gender&access_token="$1
 sample=`curl $url`
@@ -19,7 +20,7 @@ malecount=$(($totalcount - $femalecount))
 name=`echo $sample | grep -Eo '\/[[:digit:]]{2,}' | tr -d '\/'`
 user_url="https://graph.facebook.com/"$name
 user_name=`curl $user_url | grep -Eo "\"name\":\"[^\"]{1,}\"" | sed s/\"name\":\"//g | tr -d '\"' | tr -d ' '`
-filename=$user_name"FBgenderstats.txt"
+filename=$user_name"fbgstats.txt"
 
 
 echo "Male Count: "$malecount  > $filename
